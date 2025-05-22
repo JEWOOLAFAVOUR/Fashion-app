@@ -46,7 +46,7 @@ const Fashion = () => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Instagram", { akams: item })}
+              onPress={() => navigation.navigate("Random", { akams: item })}
               activeOpacity={0.5}
               style={[
                 styles.container,
