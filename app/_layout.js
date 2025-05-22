@@ -38,7 +38,9 @@ const _layout = () => {
                 return (
                   <Image
                     source={{
-                      uri: "https://img.icons8.com/?size=100&id=73&format=png&color=000000",
+                      uri: focused
+                        ? "https://img.icons8.com/?size=100&id=2797&format=png&color=000000"
+                        : "https://img.icons8.com/?size=100&id=73&format=png&color=000000",
                     }}
                     style={{
                       height: focused ? 25 : 20,
