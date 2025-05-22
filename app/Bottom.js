@@ -6,6 +6,7 @@ import Instagram from "./Instagram";
 
 const Bottom = () => {
   const Tab = createBottomTabNavigator();
+
   return (
     <Tab.Navigator
       screenOptions={{
