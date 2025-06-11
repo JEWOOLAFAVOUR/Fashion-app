@@ -1,6 +1,6 @@
 import { icons } from "@/src/constants";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import {
   FlatList,
   Image,
@@ -13,10 +13,26 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const SplashScreen = () => {
-  const todos = [
+  const [akamsTodo, setAkamsTodo] = useState("");
+
+  const [todos, setTodos] = useState([
     { id: 1, todo: "Buy groceries", isChecked: false },
     { id: 2, todo: "Walk the dog", isChecked: false },
-  ];
+  ]);
+
+  const addTodo = () => {
+    // console.log(akamsTodo);
+
+    const newTodo = {
+      id: Math.random(),
+      todo: akamsTodo,
+      isChecked: false,
+    };
+
+    setTodos([...todos, newTodo]);
+
+    setAkamsTodo("");
+  };
 
   return (
     <View style={styles.page_container}>
@@ -90,9 +106,11 @@ const SplashScreen = () => {
             placeholder="Enter a new To-do"
             placeholderTextColor={"#B7B7B7"}
             style={{ paddingLeft: 20 }}
+            value={akamsTodo}
+            onChangeText={(value) => setAkamsTodo(value)}
           />
         </View>
-        <TouchableOpacity style={styles.plus_icon}>
+        <TouchableOpacity onPress={() => addTodo()} style={styles.plus_icon}>
           <Image source={icons.plus} style={{ width: 25, height: 25 }} />
         </TouchableOpacity>
       </View>
