@@ -2,6 +2,7 @@ import { icons } from "@/src/constants";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
+  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -16,22 +17,45 @@ const SplashScreen = () => {
   const [akamsTodo, setAkamsTodo] = useState("");
 
   const [todos, setTodos] = useState([
-    { id: 1, todo: "Buy groceries", isChecked: false },
+    { id: 1, todo: "Buy groceries", isChecked: true },
     { id: 2, todo: "Walk the dog", isChecked: false },
   ]);
 
   const addTodo = () => {
     // console.log(akamsTodo);
 
+    if (akamsTodo.trim().length < 1) {
+      return Alert.alert("Todo Empty", "Enter a todo", [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    }
+
     const newTodo = {
       id: Math.random(),
-      todo: akamsTodo,
+      todo: akamsTodo.trim(),
       isChecked: false,
     };
 
     setTodos([...todos, newTodo]);
 
     setAkamsTodo("");
+  };
+
+  console.log(todos);
+
+  const deleteTodo = (id) => {
+    console.log(id);
+
+    const newTodo = todos.filter((data) => data.id !== id);
+
+    setTodos(newTodo);
+
+    console.log(newTodo);
   };
 
   return (
@@ -45,7 +69,7 @@ const SplashScreen = () => {
         >
           Hi Jacob,
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setTodos([])}>
           <Icon name="trash" size={25} color="#FF6B6B" />
         </TouchableOpacity>
       </View>
@@ -81,11 +105,11 @@ const SplashScreen = () => {
                   >
                     <TouchableOpacity>
                       <Image
-                        source={icons.check}
+                        source={item.isChecked ? icons.check2 : icons.check}
                         style={{ height: 22, width: 22, marginRight: 10 }}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => deleteTodo(item.id)}>
                       <Image
                         source={icons.trash}
                         style={{ width: 22, height: 22 }}
