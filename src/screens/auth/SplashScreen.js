@@ -2,7 +2,6 @@ import { icons } from "@/src/constants";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
-  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -21,41 +20,19 @@ const SplashScreen = () => {
     { id: 2, todo: "Walk the dog", isChecked: false },
   ]);
 
+  // const todos = [
+  //   { id: 1, todo: "Buy groceries", isChecked: true },
+  //   { id: 2, todo: "Walk the dog", isChecked: false },
+  // ];
+
   const addTodo = () => {
-    // console.log(akamsTodo);
-
-    if (akamsTodo.trim().length < 1) {
-      return Alert.alert("Todo Empty", "Enter a todo", [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
-    }
-
-    const newTodo = {
-      id: Math.random(),
-      todo: akamsTodo.trim(),
+    const akamsData = {
+      id: 3,
+      todo: "Hello Akams",
       isChecked: false,
     };
 
-    setTodos([...todos, newTodo]);
-
-    setAkamsTodo("");
-  };
-
-  console.log(todos);
-
-  const deleteTodo = (id) => {
-    console.log(id);
-
-    const newTodo = todos.filter((data) => data.id !== id);
-
-    setTodos(newTodo);
-
-    console.log(newTodo);
+    setTodos([...todos, akamsData]);
   };
 
   return (
@@ -130,8 +107,6 @@ const SplashScreen = () => {
             placeholder="Enter a new To-do"
             placeholderTextColor={"#B7B7B7"}
             style={{ paddingLeft: 20 }}
-            value={akamsTodo}
-            onChangeText={(value) => setAkamsTodo(value)}
           />
         </View>
         <TouchableOpacity onPress={() => addTodo()} style={styles.plus_icon}>
