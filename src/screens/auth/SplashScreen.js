@@ -1,118 +1,60 @@
-import { icons } from "@/src/constants";
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import FormInput from "./FormInput";
 const SplashScreen = () => {
-  const [akamsTodo, setAkamsTodo] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [todos, setTodos] = useState([
-    { id: 1, todo: "Buy groceries", isChecked: true },
-    { id: 2, todo: "Walk the dog", isChecked: false },
-  ]);
-
-  // const todos = [
-  //   { id: 1, todo: "Buy groceries", isChecked: true },
-  //   { id: 2, todo: "Walk the dog", isChecked: false },
-  // ];
-
-  const addTodo = () => {
-    const akamsData = {
-      id: 3,
-      todo: "Hello Akams",
-      isChecked: false,
+  const handleSubmit = () => {
+    const body = {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      password: password,
     };
-
-    setTodos([...todos, akamsData]);
+    console.log(body);
   };
 
   return (
-    <View style={styles.page_container}>
-      {/* HEADER  */}
-      <View
-        style={{ marginBottom: 20, flexDirection: "row", alignItems: "center" }}
-      >
-        <Text
-          style={{ fontSize: 20, color: "black", fontWeight: "bold", flex: 1 }}
-        >
-          Hi Jacob,
-        </Text>
-        <TouchableOpacity onPress={() => setTodos([])}>
-          <Icon name="trash" size={25} color="#FF6B6B" />
-        </TouchableOpacity>
-      </View>
-      {/* Todos */}
-      <StatusBar />
-      <View>
-        <FlatList
-          data={todos}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-            return (
-              <View style={styles.todo_container}>
-                <View style={{ flexDirection: "row" }}>
-                  <Text
-                    style={{
-                      color: "#333333",
-                      fontSize: 16,
-                      marginLeft: 20,
-                      flex: 1,
-                      textDecorationLine: item.isChecked
-                        ? "line-through"
-                        : "none",
-                    }}
-                  >
-                    {item.todo}
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    <TouchableOpacity>
-                      <Image
-                        source={item.isChecked ? icons.check2 : icons.check}
-                        style={{ height: 22, width: 22, marginRight: 10 }}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => deleteTodo(item.id)}>
-                      <Image
-                        source={icons.trash}
-                        style={{ width: 22, height: 22 }}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            );
-          }}
+    <View style={styles.page}>
+      <Text style={{ fontSize: 20, color: "black", fontWeight: "bold" }}>
+        Create account
+      </Text>
+      {/* inputs */}
+      <View style={{ marginTop: 20 }}>
+        <FormInput
+          title={"First Name"}
+          placeholder={"Enter first name"}
+          value={firstname}
+          setValue={setFirstName}
+        />
+        <FormInput
+          title={"Last Name"}
+          placeholder={"Enter last name"}
+          value={lastname}
+          setValue={setLastName}
+        />
+        <FormInput
+          title={"Email"}
+          placeholder={"Enter email"}
+          value={email}
+          setValue={setEmail}
+        />
+        <FormInput
+          title={"Password"}
+          placeholder={"Enter password"}
+          value={password}
+          setValue={setPassword}
         />
       </View>
-
-      {/* Add tasks */}
-      <View style={styles.input_container}>
-        <View style={styles.input_field}>
-          <TextInput
-            placeholder="Enter a new To-do"
-            placeholderTextColor={"#B7B7B7"}
-            style={{ paddingLeft: 20 }}
-          />
-        </View>
-        <TouchableOpacity onPress={() => addTodo()} style={styles.plus_icon}>
-          <Image source={icons.plus} style={{ width: 25, height: 25 }} />
-        </TouchableOpacity>
-      </View>
+      {/* btn */}
+      <TouchableOpacity onPress={() => handleSubmit()} style={styles.button}>
+        <Text style={{ fontSize: 15, color: "white", fontWeight: "600" }}>
+          Submit
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -120,50 +62,26 @@ const SplashScreen = () => {
 export default SplashScreen;
 
 const styles = StyleSheet.create({
-  page_container: {
-    backgroundColor: "#F5F5F5",
+  page: {
     flex: 1,
-    paddingTop: 50,
+    backgroundColor: "#ffffff",
     paddingHorizontal: 20,
+    paddingTop: 10,
   },
-  todo_container: {
+  inputCtn: {
     height: 50,
-    justifyContent: "center",
-    borderColor: "#D1D1D1",
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 20,
-  },
-
-  input_container: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: "#FFFFFF",
-    borderTopColor: "#D1D1D1",
-  },
-
-  input_field: {
-    height: 45,
-    flex: 1,
-    borderColor: "#D1D1D1",
-    borderWidth: 2,
-    borderRadius: 10,
+    marginTop: 10,
     justifyContent: "center",
+    paddingHorizontal: 10,
   },
-
-  plus_icon: {
-    height: 45,
-    width: 45,
-    borderColor: "#D1D1D1",
-    borderWidth: 2,
-    borderRadius: 22,
-    alignItems: "center",
+  button: {
+    height: 50,
+    backgroundColor: "#042732",
     justifyContent: "center",
-    marginLeft: 10,
+    alignItems: "center",
+    borderRadius: 5,
+    marginTop: 20,
   },
 });
