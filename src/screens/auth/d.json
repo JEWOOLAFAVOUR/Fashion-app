@@ -1,0 +1,26 @@
+{
+    "data": {
+        "created": true,
+        "message": "Account Created Successfully. Please Verify your email",
+        "success": true,
+        "user": {
+            "email": "d@gmail.com",
+            "firstname": "jewo",
+            "lastname": "dudu",
+            "otp": "3671",
+            "userId": "6899ccf5c9c5aec8daa4fd81",
+            "verified": false
+        }
+    },
+    "status": 201
+}
+// {
+//     "data": {
+//         "checkStatus": "verify-later",
+//         "email": "d@gmail.com",
+//         "message": "This account need verification",
+//         "success": false,
+//         "userId": "6899ccf5c9c5aec8daa4fd81"
+//     },
+//     "status": 400
+// }
